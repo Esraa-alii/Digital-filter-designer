@@ -60,4 +60,4 @@ To start deployment
 
 ![main widow](./Demo/generate.gif)
 
-     All rights reserved © 2022 to Team 21 - Systems & Biomedical Engineering, Cairo University (Class 2024)
+ All rights reserved © 2022 to Team 21 - Systems & Biomedical Engineering, Cairo University (Class 2024)
