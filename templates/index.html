@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{{url_for('static', filename='bootstrap.min.css')}}" />
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+  <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}" />
+
+  <script src="{{url_for('static', filename='bootstrap.bundle.min.js')}}"></script>
+  <script src="{{url_for('static', filename='jquery-3.6.0.min.js')}}"></script>
+  <script src="{{url_for('static', filename='plotly-2.8.3.min.js')}}"></script>
+  <title>Digital filter design</title>
+</head>
+
+<body>
+<div class="side-button position-fixed d-flex align-items-center justify-content-center p-0">
+            Apply Allpass filters
+        </div>
+
+        <div class="sidebar position-fixed">
+            <p>AllPass Filters</p>
+            <hr>
+            <div id="filters" class="d-flex flex-column flex-wrap py-2">
+
+            </div>
+        </div>
+  <div class="parent">
+    <div class="child d-flex flex-column justify-content-center align-items-center" style="width: 35%;">
+      <div class="d-flex justify-content-between mb-1 mt-5 ">
+        <input type="button" value="Download" onclick="save_func()"  class="btn btn-primary mx-2 text-nowrap">
+        <button class="btn btn-primary mx-2 text-nowrap" data-bs-toggle="modal" data-bs-target="#myModal">add all pass filter</button>
+      </div>
+      <canvas id="zplanecanvas" width="300" height="300" style="border:1px solid #131212a3;">
+    </canvas>
+    
+    <div class="d-flex">
+      <div class="d-flex">
+        <div class="py-2">
+          <input type="radio" name="type" id="zeros" value="zeros" onclick="changeType()" checked="checked" class="controllers">
+          <label for="zeros" class="add" >Add Zero</label>
+        </div>
+      </div>
+
+      <div class="d-flex">
+        <div class="p-2">
+        <input type="radio" name="type" id="poles" value="poles" onclick="changeType()" class="controllers">
+        <label for="poles" class="add" >Add pole</label>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-between my-2">
+      
+      <button class="btn btn-danger mx-1" onclick="clearAll()">delete all </button>
+      <button class="btn btn-danger mx-1" onclick="deleteFreq()">Delete </button>
+
+    </div>
+
+
+
+    </div>
+    <div class="child" style="width: 50%;">
+      <div id="myDiv">
+      </div>
+    </div>
+
+    <div class="clr"></div>
+  </div>
+
+  <div class="parent d-flex flex-column align-items-center">
+    <div id="coordinates">
+    </div>
+    <button id="signalsplot" class="btn btn-secondary p-2" data-bs-toggle="modal" data-bs-target="#realTimeSignalModal">Generate real time signal</button>
+  </div>
+
+
+
+  <div class="modal fade" id="realTimeSignalModal">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Real time Signal</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body realModal">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div id="pad" class="pad" > </div><div id="padreplacement" class="padreplacment" style="display: none;"></div>
+              <div id="live-plot"  style="margin-left: -173%; margin-top: 10%; width: 170%; height: 60%;"></div>
+              
+
+              <div class="child d-flex flex-column justify-content-center align-items-center" style="width: 35%; margin-top: 120px;">
+                <canvas id="myCanvas" width = "250" height = "250" style="border:1px solid #999999; background-color: #999999;position: absolute;
+                top: 3%;
+                right: 3%;
+            " ></canvas>
+                </div>
+                <div class="child" style="width: 50%;">
+                  <div id="mydiv" style="top: 1%;left: 3%; position:absolute; width: 650px; height: 300px;"></div>
+                  <div id="realTimeSignal" style="left: 3%; position:absolute; width: 650px; height: 300px; margin-top: -300px; "></div>
+                </div>
+              
+              <div id="maindiv" >
+                <p id="poss" ></p>
+            </div>
+              <div class="col-12">
+                <div id="realtimeSignal">
+                </div>
+              </div>
+              </div>
+          </div>
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer"
+          style = "
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+          display: none;
+          "
+        >
+          <div class="d-flex">
+          <form enctype="multipart/form-data" method="post" id="form" >
+            <label for="signalFile" style = " font-size:medium;" class="btn btn-success my-2">Load Signal</label>
+            <input type="file" id="signalFile" accept=".csv" class="btn btn-success" style="visibility:hidden;" />
+          </form>
+          </div>
+          <button type="button" style = "font-size:medium;" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- The Modal -->
+  <div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">choose all pass filter </h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="container">
+            <div class="row pt-5">
+              <div class="d-flex justify-content-center">
+              <div class="pe-2">
+                <label for="a">Choose a value:</label>
+                <select name="a" id="a-values" style="height: 36px;">
+                </select>
+              </div>
+              <div class="pe-2">
+                <button id="addfilter" class="btn btn-primary p-2">add filter</button>
+              </div>
+              <div class="pe-5" id="addFilterLoader">
+              </div>
+              <div class="pe-2">
+                <label for="real">Real</label>
+                <input type="number" name="real" class="allpassfiltera" value="0" style="height: 36px;">
+              </div>
+             <div class="pe-2">
+              <label for="imaginary">Imaginary</label>
+              <input type="number" name="imaginary" class="allpassfiltera" value="0" style="height: 36px;">
+             </div>
+              <div class="pe-2">
+                <button id="addfiltertolibrary" class="btn btn-secondary p-2 me-2" disabled>add to library</button>
+              </div>
+              <div class="pe-2" id="addFilterToLibraryLoader">
+              </div>
+            </div>
+
+            </div>
+            <div class="row">
+              <div class="col-3 d-flex align-items-center">
+                <canvas id="allpasszplane" width="300" height="300" style="border:1px solid #d3d3d3;">
+                </canvas>
+              </div>
+              <div class="col-7 offset-1">
+                <div id="allpassfrequencyresponse">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    <!-- <input type="button" value="save" onclick="save_func()" > -->
+
+  <script src="{{url_for('static', filename='main.js')}}"></script>
+  <script src="{{url_for('static', filename='allpassfilter.js')}}"></script>
+
+
+</body>
+
+</html>

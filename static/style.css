@@ -1,0 +1,160 @@
+body{
+    background-color: rgb(228, 228, 228);
+}
+
+.btn{
+    font-size: medium;
+}
+.clr{
+    clear: both;
+}
+
+.parent{
+    padding-top: 50px;
+    width: 100%;
+}
+.child{
+    float: left;
+    height: 450px;
+}
+
+.sidebar {
+    background-color: rgb(208, 208, 208);
+    right: -250px;
+    width: 250px;
+    top: 0;
+    bottom: 0;
+    z-index: 99999999;
+    padding: 20px;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+
+}
+.sidebar p{
+    font-size: larger;
+}
+
+.sidebar hr {
+    margin: 8px 0;
+    opacity: 0.6;
+    color: rgb(63, 56, 101);
+}
+
+.side-button {
+    background-color:rgb(63, 56, 101);
+    color: #fff;
+    font-size: 12px;
+    border-radius: 4px 0px 0px 4px;
+    right: 0;
+    top: 8vh;
+    width: 150px;
+    height: 40px;
+    z-index: 999999999;
+    cursor: pointer;
+    box-shadow: 0px 5px 15px rgb(0 0 0 / 15%);
+    transition: box-shadow 0.5s ease;
+}
+
+
+
+.scale {
+    transform: scale(1) !important;
+}
+
+
+input[type="checkbox"]{
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+
+.valid,.valid:focus,.valid:focus-visible{
+    outline: none;
+    border: 2px solid #198754 !important;
+}
+
+.invalid,.invalid:focus,.invalid:focus-visible{
+    outline: none;
+    border: 2px solid #dc3545 !important;
+}
+.btn-danger{
+    background-color: #741a1a;
+    border-color: #741a1a;
+}
+.btn-danger:hover{
+    background-color: #741a1a;
+    border-color: #741a1a;
+}
+.btn-secondary{
+    background-color: rgb(58, 103, 103);
+    border-color: rgb(58, 103, 103);
+}
+.btn-secondary:hover{
+    background-color: rgb(58, 103, 103);
+    border-color: rgb(58, 103, 103);
+}
+.btn-primary{
+    background-color: rgb(63, 56, 101);
+    border-color: rgb(63, 56, 101) ;
+}
+.btn-primary:hover{
+    background-color: rgb(63, 56, 101);
+    border-color: rgb(63, 56, 101) ;
+}
+.modal-body{
+    background-color: rgb(255, 255, 255);
+    color: black;
+}
+.modal-header{
+    background-color: rgb(63, 56, 101);
+}
+.modal{
+    color: #fff;
+}
+.modal-footer{
+    background-color: rgb(225, 225, 225);
+}
+.add{
+    background-color: rgb(58, 103, 103);
+    color: #fff;
+    padding: 7px;
+    border: 2px rgb(58, 103, 103);
+    border-radius: 5px;
+    align-self: center;
+    margin-left: 3px; 
+ }
+ .controllers{
+    display: none;
+}
+#coordinates{
+    display: none;
+}
+
+.realModal{
+    background-color: rgb(255, 255, 255);
+    color: black;
+    height: 700px; 
+ }
+body {
+    background-color: #f1f1f1 !important;
+    }
+.parent{
+width: 100%;
+}
+  
+.child{
+float: left;
+height: 450px;
+}

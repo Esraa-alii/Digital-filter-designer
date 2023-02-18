@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="maindiv" style=" width: 500px;height: 500px; background-color: rgb(79, 8, 8);">
+        <p id="poss" style="position: relative;">،،</p>
+    </div>
+
+    <script>
+        var elm = document.getElementById("maindiv")
+        elm.addEventListener("mousemove",getcordinate,false);
+        function getcordinate(ev){
+            var bnds = ev.target.getBoundingClientRect();
+            var x = event.clientX - bnds.left;
+            var y = event.clientY - bnds.top;
+            var pelem = document.getElementById("poss");
+            pelem.innerHTML="position x = "+ x +", position y = "+y;
+
+        }
+    </script>
+</body>
+</html>
